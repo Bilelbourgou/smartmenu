@@ -24,7 +24,7 @@ export default function SettingsPage() {
   const [restaurant, setRestaurant] = useState<Restaurant | null>(null);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [logoUrl, setLogoUrl] = useState("");
+  const [logoUrl, setLogoUrl] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [saved, setSaved] = useState(false);
 
@@ -48,7 +48,7 @@ export default function SettingsPage() {
         setRestaurant(data);
         setName(data.name);
         setDescription(data.description || "");
-        setLogoUrl(data.logo_url || "");
+        setLogoUrl(data.logo_url || null);
       }
     };
 
