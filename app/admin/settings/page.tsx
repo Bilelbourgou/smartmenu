@@ -66,7 +66,7 @@ export default function SettingsPage() {
       .update({
         name: name.trim(),
         description: description.trim() || null,
-        logo_url: logoUrl.trim() || null,
+        logo_url: logoUrl?.trim() || null,
       })
       .eq("id", restaurant.id);
 
