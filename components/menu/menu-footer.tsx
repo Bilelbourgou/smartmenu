@@ -2,12 +2,11 @@
 
 export function MenuFooter() {
   return (
-    <footer className="fixed bottom-0 left-0 right-0 bg-background/80 backdrop-blur-lg border-t border-border/50 py-4">
-      <div className="container mx-auto px-4">
-        <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
-          <span>Propulse par</span>
-          <span className="font-serif text-primary font-medium">SmartMenu</span>
-        </div>
+    <footer className="py-8 border-t border-border/20 mt-8">
+      <div className="container mx-auto px-4 flex flex-col items-center gap-1 text-center">
+        <p className="text-[11px] uppercase tracking-widest text-muted-foreground/60">Propulse par</p>
+        <span className="font-serif text-primary text-lg font-medium">SmartMenu</span>
+        <p className="text-[11px] text-muted-foreground/50">Menu Digital de Luxe</p>
       </div>
     </footer>
   );

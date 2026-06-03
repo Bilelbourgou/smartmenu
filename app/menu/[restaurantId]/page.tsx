@@ -71,7 +71,7 @@ export default async function MenuPage({ params }: PageProps) {
         <CategoryNav categories={categoriesWithItems} />
       )}
 
-      <div className="container mx-auto px-4 pb-24">
+      <div className="container mx-auto px-4 pb-16 max-w-2xl">
         {categoriesWithItems.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-20">
             <p className="text-muted-foreground text-lg">

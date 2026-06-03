@@ -8,18 +8,36 @@ interface MenuItemProps {
 }
 
 export function MenuItem({ item }: MenuItemProps) {
-  const formatPrice = (price: number) => {
-    return new Intl.NumberFormat("fr-TN", {
+  const formatPrice = (price: number) =>
+    new Intl.NumberFormat("fr-TN", {
       style: "decimal",
       minimumFractionDigits: 3,
       maximumFractionDigits: 3,
     }).format(price);
-  };
 
   return (
-    <article className="group relative flex gap-4 p-4 rounded-xl bg-card/50 border border-border/50 hover:border-primary/30 hover:bg-card transition-all duration-300 gold-glow-hover">
-      {item.image_url && (
-        <div className="relative w-24 h-24 md:w-28 md:h-28 rounded-lg overflow-hidden flex-shrink-0">
+    <article className="group flex items-center gap-4 p-4 rounded-2xl bg-card border border-border/30 hover:border-primary/25 hover:bg-card/80 transition-all duration-200">
+      {/* Text — left */}
+      <div className="flex-1 min-w-0 flex flex-col gap-1">
+        <h3 className="font-semibold text-foreground text-[15px] leading-snug group-hover:text-primary transition-colors duration-200">
+          {item.name}
+        </h3>
+
+        {item.description && (
+          <p className="text-xs text-muted-foreground leading-relaxed line-clamp-2">
+            {item.description}
+          </p>
+        )}
+
+        <p className="mt-1.5 font-serif text-primary font-semibold text-base leading-none">
+          {formatPrice(item.price)}{" "}
+          <span className="text-xs font-sans text-muted-foreground font-normal">DT</span>
+        </p>
+      </div>
+
+      {/* Image — right */}
+      {item.image_url ? (
+        <div className="relative w-22 h-22 rounded-xl overflow-hidden shrink-0 ring-1 ring-border/20">
           <Image
             src={item.image_url}
             alt={item.name}
@@ -27,24 +45,11 @@ export function MenuItem({ item }: MenuItemProps) {
             className="object-cover group-hover:scale-105 transition-transform duration-500"
           />
         </div>
-      )}
-
-      <div className="flex-1 min-w-0 flex flex-col justify-center">
-        <div className="flex items-start justify-between gap-4">
-          <h3 className="text-lg font-medium text-foreground group-hover:text-primary transition-colors">
-            {item.name}
-          </h3>
-          <span className="text-lg font-serif text-primary whitespace-nowrap">
-            {formatPrice(item.price)} <span className="text-xs text-muted-foreground">TND</span>
-          </span>
+      ) : (
+        <div className="w-22 h-22 rounded-xl bg-primary/5 border border-border/20 shrink-0 flex items-center justify-center">
+          <span className="text-2xl opacity-25">🍽️</span>
         </div>
-
-        {item.description && (
-          <p className="mt-1 text-sm text-muted-foreground line-clamp-2 text-pretty">
-            {item.description}
-          </p>
-        )}
-      </div>
+      )}
     </article>
   );
 }

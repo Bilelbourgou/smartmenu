@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import type { CategoryWithItems } from "@/lib/types";
 
@@ -9,58 +9,56 @@ interface CategoryNavProps {
 }
 
 export function CategoryNav({ categories }: CategoryNavProps) {
-  const [activeCategory, setActiveCategory] = useState<string | null>(
-    categories[0]?.id || null
-  );
+  const [activeCategory, setActiveCategory] = useState<string | null>(categories[0]?.id || null);
+  const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = categories.map((cat) => ({
-        id: cat.id,
-        element: document.getElementById(`category-${cat.id}`),
-      }));
-
-      const scrollPosition = window.scrollY + 200;
-
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const section = sections[i];
-        if (section.element && section.element.offsetTop <= scrollPosition) {
-          setActiveCategory(section.id);
+      const scrollY = window.scrollY + 140;
+      for (let i = categories.length - 1; i >= 0; i--) {
+        const el = document.getElementById(`category-${categories[i].id}`);
+        if (el && el.offsetTop <= scrollY) {
+          setActiveCategory(categories[i].id);
           break;
         }
       }
     };
-
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, [categories]);
 
-  const scrollToCategory = (categoryId: string) => {
-    const element = document.getElementById(`category-${categoryId}`);
-    if (element) {
-      const offset = 120;
-      const top = element.offsetTop - offset;
-      window.scrollTo({ top, behavior: "smooth" });
-    }
+  // auto-scroll the active pill into view inside the nav bar
+  useEffect(() => {
+    if (!activeCategory || !scrollRef.current) return;
+    const btn = scrollRef.current.querySelector(`[data-cat="${activeCategory}"]`) as HTMLElement | null;
+    btn?.scrollIntoView({ inline: "nearest", block: "nearest" });
+  }, [activeCategory]);
+
+  const scrollToCategory = (id: string) => {
+    const el = document.getElementById(`category-${id}`);
+    if (!el) return;
+    window.scrollTo({ top: el.offsetTop - 72, behavior: "smooth" });
+    setActiveCategory(id);
   };
 
   return (
-    <nav className="sticky top-0 z-40 bg-background/80 backdrop-blur-lg border-b border-border/50">
+    <nav data-menu-nav className="sticky top-0 z-40 bg-background/90 backdrop-blur-xl border-b border-border/30 shadow-sm">
       <div className="container mx-auto px-4">
-        <div className="flex gap-1 overflow-x-auto py-3 scrollbar-hide">
-          {categories.map((category) => (
+        <div ref={scrollRef} className="flex gap-1.5 overflow-x-auto py-3 scrollbar-hide">
+          {categories.map((cat) => (
             <button
-              key={category.id}
-              onClick={() => scrollToCategory(category.id)}
+              key={cat.id}
+              data-cat={cat.id}
+              onClick={() => scrollToCategory(cat.id)}
               className={cn(
-                "flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all duration-300",
-                activeCategory === category.id
-                  ? "bg-primary text-primary-foreground gold-glow"
-                  : "bg-secondary/50 text-muted-foreground hover:bg-secondary hover:text-foreground"
+                "flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all duration-200 shrink-0",
+                activeCategory === cat.id
+                  ? "bg-primary text-primary-foreground shadow-sm shadow-primary/20"
+                  : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"
               )}
             >
-              <span>{category.icon}</span>
-              <span>{category.name}</span>
+              <span className="text-base leading-none">{cat.icon}</span>
+              <span>{cat.name}</span>
             </button>
           ))}
         </div>
