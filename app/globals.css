@@ -188,6 +188,87 @@
   animation: shimmer 1.5s infinite;
 }
 
+/* ── Glass morphism ── */
+.glass {
+  background: rgba(13, 11, 9, 0.55);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+}
+
+/* ── Spotlight radial ── */
+.spotlight {
+  position: relative;
+}
+.spotlight::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 80% 55% at 50% -10%, rgba(201,168,76,0.13) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Subtle grid pattern ── */
+.grid-pattern {
+  background-image:
+    linear-gradient(rgba(201,168,76,0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201,168,76,0.035) 1px, transparent 1px);
+  background-size: 52px 52px;
+}
+
+/* ── Gradient border ── */
+.grad-border {
+  background:
+    linear-gradient(var(--card), var(--card)) padding-box,
+    linear-gradient(135deg, rgba(201,168,76,0.45) 0%, rgba(201,168,76,0.05) 50%, rgba(201,168,76,0.45) 100%) border-box;
+  border: 1px solid transparent;
+}
+
+/* ── Thin gradient line ── */
+.gradient-line {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201,168,76,0.35), transparent);
+}
+
+/* ── Stat number gradient ── */
+.stat-num {
+  background: linear-gradient(135deg, #C9A84C 0%, #F0DFA0 50%, #C9A84C 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 5s linear infinite;
+}
+
+/* ── Nav link underline ── */
+.nav-link { position: relative; }
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px; left: 0;
+  width: 0; height: 1px;
+  background: var(--primary);
+  transition: width 0.3s ease;
+}
+.nav-link:hover::after { width: 100%; }
+
+/* ── Card inner glow ── */
+.card-inner-glow {
+  box-shadow: inset 0 1px 0 rgba(201,168,76,0.1), inset 0 0 40px rgba(201,168,76,0.03);
+}
+
+/* ── Text glow ── */
+.text-glow {
+  filter: drop-shadow(0 0 40px rgba(201,168,76,0.45));
+}
+
+/* ── CTA button animated glow ── */
+@keyframes ctaGlow {
+  0%, 100% { box-shadow: 0 0 20px rgba(201,168,76,0.25), 0 0 60px rgba(201,168,76,0.1); }
+  50%       { box-shadow: 0 0 30px rgba(201,168,76,0.45), 0 0 80px rgba(201,168,76,0.2); }
+}
+.cta-glow { animation: ctaGlow 3s ease-in-out infinite; }
+
 /* ── Scroll reveal ── */
 .reveal-item {
   opacity: 0;
