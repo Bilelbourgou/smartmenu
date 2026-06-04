@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 import { AdminSidebar } from "@/components/admin/admin-sidebar";
+import { isSuperAdmin } from "@/lib/utils/is-superadmin";
 
 export default async function AdminLayout({
   children,
@@ -12,6 +13,10 @@ export default async function AdminLayout({
 
   if (!user) {
     redirect("/auth/login");
+  }
+
+  if (isSuperAdmin(user.email)) {
+    redirect("/superadmin");
   }
 
   const { data: restaurant } = await supabase
