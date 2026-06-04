@@ -9,18 +9,41 @@ interface PageProps {
   params: Promise<{ restaurantId: string }>;
 }
 
+const BASE_URL = 'https://smartmenu.tn';
+
 export async function generateMetadata({ params }: PageProps) {
   const { restaurantId } = await params;
   const supabase = await createClient();
-  const { data: restaurant } = await supabase
+  const { data: r } = await supabase
     .from("restaurants")
-    .select("name, description")
+    .select("name, description, logo_url")
     .eq("id", restaurantId)
     .single();
-  if (!restaurant) return { title: "Menu non trouve" };
+
+  if (!r) return { title: "Menu non trouve" };
+
+  const title = `${r.name} — Menu Digital`;
+  const description = r.description || `Consultez le menu de ${r.name} directement depuis votre telephone.`;
+  const url = `${BASE_URL}/menu/${restaurantId}`;
+
   return {
-    title: `${restaurant.name} - Menu`,
-    description: restaurant.description || `Decouvrez le menu de ${restaurant.name}`,
+    title,
+    description,
+    alternates: { canonical: url },
+    openGraph: {
+      type: 'website',
+      url,
+      title,
+      description,
+      siteName: 'SmartMenu',
+      images: r.logo_url ? [{ url: r.logo_url, alt: r.name }] : [{ url: '/logo.png', alt: 'SmartMenu' }],
+    },
+    twitter: {
+      card: 'summary',
+      title,
+      description,
+      images: r.logo_url ? [r.logo_url] : ['/logo.png'],
+    },
   };
 }
 

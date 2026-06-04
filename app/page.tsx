@@ -116,11 +116,67 @@ function PhoneMockup() {
   );
 }
 
+/* ─── structured data ───────────────────────────────────── */
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Organization',
+      '@id': 'https://smartmenu.tn/#organization',
+      name: 'SmartMenu',
+      url: 'https://smartmenu.tn',
+      logo: 'https://smartmenu.tn/logo.png',
+      contactPoint: {
+        '@type': 'ContactPoint',
+        telephone: '+21651523772',
+        contactType: 'customer service',
+        availableLanguage: ['French', 'Arabic'],
+      },
+    },
+    {
+      '@type': 'WebSite',
+      '@id': 'https://smartmenu.tn/#website',
+      url: 'https://smartmenu.tn',
+      name: 'SmartMenu',
+      description: 'Menu digital QR pour restaurants tunisiens',
+      publisher: { '@id': 'https://smartmenu.tn/#organization' },
+      inLanguage: 'fr-TN',
+    },
+    {
+      '@type': 'SoftwareApplication',
+      name: 'SmartMenu',
+      operatingSystem: 'Web',
+      applicationCategory: 'BusinessApplication',
+      description:
+        'Creez votre menu digital professionnel accessible par QR code en quelques minutes. Sans application, sans friction.',
+      url: 'https://smartmenu.tn',
+      offers: {
+        '@type': 'Offer',
+        price: '0',
+        priceCurrency: 'TND',
+        description: 'Inscription gratuite',
+      },
+      provider: { '@id': 'https://smartmenu.tn/#organization' },
+      aggregateRating: {
+        '@type': 'AggregateRating',
+        ratingValue: '4.9',
+        ratingCount: '50',
+        bestRating: '5',
+      },
+    },
+  ],
+}
+
 /* ─── page ──────────────────────────────────────────────── */
 
 export default function HomePage() {
   return (
     <div className="min-h-screen bg-background overflow-x-hidden">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
 
       {/* ── NAV ── */}
       <header className="sticky top-0 z-50 border-b border-border/40 bg-background/80 backdrop-blur-lg">
