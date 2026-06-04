@@ -127,7 +127,7 @@ export function MenuControls({ categories }: MenuControlsProps) {
 
         {/* Category pills */}
         {!searchResults && (
-          <div ref={navRef} className="container mx-auto max-w-2xl px-4 pb-3 flex gap-1.5 overflow-x-auto scrollbar-hide">
+          <div ref={navRef} className="container mx-auto max-w-2xl px-4 pt-2 pb-3 flex gap-1.5 overflow-x-auto scrollbar-hide">
             {categories.map((cat) => (
               <button
                 key={cat.id}

@@ -1,11 +1,19 @@
 "use client";
 
 import Image from "next/image";
-import { MapPin } from "lucide-react";
 import type { Restaurant } from "@/lib/types";
 
 interface MenuHeaderProps {
   restaurant: Restaurant;
+}
+
+function GoogleMapsIcon() {
+  return (
+    <svg viewBox="0 0 24 24" className="w-5 h-5" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#EA4335"/>
+      <circle cx="12" cy="9" r="2.5" fill="white"/>
+    </svg>
+  );
 }
 
 function FacebookIcon() {
@@ -62,8 +70,8 @@ export function MenuHeader({ restaurant }: MenuHeaderProps) {
           <div className="flex items-center gap-1 shrink-0">
             {restaurant.maps_url && (
               <a href={restaurant.maps_url} target="_blank" rel="noopener noreferrer"
-                className="w-9 h-9 rounded-full bg-secondary/60 flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors">
-                <MapPin className="w-4 h-4" />
+                className="w-9 h-9 rounded-full bg-secondary/60 flex items-center justify-center hover:bg-secondary transition-colors">
+                <GoogleMapsIcon />
               </a>
             )}
             {restaurant.instagram_url && (
