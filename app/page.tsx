@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { ScrollReveal } from "@/components/ui/scroll-reveal";
 import { CountUp } from "@/components/ui/count-up";
@@ -124,7 +125,7 @@ export default function HomePage() {
       {/* ── NAV ── */}
       <header className="sticky top-0 z-50 border-b border-border/40 bg-background/80 backdrop-blur-lg">
         <div className="container mx-auto px-4 h-16 flex items-center justify-between gap-4">
-          <span className="text-xl font-serif text-primary flex-shrink-0">SmartMenu</span>
+          <Image src="/logo.png" alt="SmartMenu" width={160} height={64} className="h-14 w-auto object-contain shrink-0" />
 
           <nav className="hidden md:flex items-center gap-6 text-sm text-muted-foreground">
             <a href="#concept"     className="hover:text-foreground transition-colors">Le concept</a>
@@ -463,8 +464,7 @@ export default function HomePage() {
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <div>
-              <span className="font-serif text-primary text-xl">SmartMenu</span>
-              <p className="text-xs text-muted-foreground mt-1">Menu Digital de Luxe pour restaurants</p>
+              <Image src="/logo.png" alt="SmartMenu" width={220} height={88} className="h-24 w-auto object-contain" />
             </div>
 
             <nav className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-muted-foreground">
