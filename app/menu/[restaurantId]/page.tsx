@@ -1,8 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { notFound } from "next/navigation";
 import { MenuHeader } from "@/components/menu/menu-header";
-import { CategoryNav } from "@/components/menu/category-nav";
-import { MenuSection } from "@/components/menu/menu-section";
+import { MenuControls } from "@/components/menu/menu-controls";
 import { MenuFooter } from "@/components/menu/menu-footer";
 import type { CategoryWithItems, Restaurant } from "@/lib/types";
 
@@ -13,17 +12,12 @@ interface PageProps {
 export async function generateMetadata({ params }: PageProps) {
   const { restaurantId } = await params;
   const supabase = await createClient();
-  
   const { data: restaurant } = await supabase
     .from("restaurants")
     .select("name, description")
     .eq("id", restaurantId)
     .single();
-
-  if (!restaurant) {
-    return { title: "Menu non trouve" };
-  }
-
+  if (!restaurant) return { title: "Menu non trouve" };
   return {
     title: `${restaurant.name} - Menu`,
     description: restaurant.description || `Decouvrez le menu de ${restaurant.name}`,
@@ -66,24 +60,14 @@ export default async function MenuPage({ params }: PageProps) {
   return (
     <main className="min-h-screen bg-background">
       <MenuHeader restaurant={restaurant as Restaurant} />
-      
-      {categoriesWithItems.length > 0 && (
-        <CategoryNav categories={categoriesWithItems} />
-      )}
 
-      <div className="container mx-auto px-4 pb-16 max-w-2xl">
-        {categoriesWithItems.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-20">
-            <p className="text-muted-foreground text-lg">
-              Le menu est en cours de preparation...
-            </p>
-          </div>
-        ) : (
-          categoriesWithItems.map((category) => (
-            <MenuSection key={category.id} category={category} />
-          ))
-        )}
-      </div>
+      {categoriesWithItems.length === 0 ? (
+        <div className="flex flex-col items-center justify-center py-20 text-muted-foreground">
+          <p className="text-lg">Le menu est en cours de preparation...</p>
+        </div>
+      ) : (
+        <MenuControls categories={categoriesWithItems} />
+      )}
 
       <MenuFooter />
     </main>

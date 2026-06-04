@@ -7,6 +7,10 @@ export interface Restaurant {
   email: string | null;
   created_at: string;
   is_active?: boolean;
+  address?: string | null;
+  facebook_url?: string | null;
+  instagram_url?: string | null;
+  maps_url?: string | null;
 }
 
 export interface Category {
