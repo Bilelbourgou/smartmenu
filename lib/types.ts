@@ -6,6 +6,7 @@ export interface Restaurant {
   description: string | null;
   email: string | null;
   created_at: string;
+  is_active?: boolean;
 }
 
 export interface Category {

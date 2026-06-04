@@ -40,7 +40,7 @@ export default async function MenuPage({ params }: PageProps) {
     .eq("id", restaurantId)
     .single();
 
-  if (!restaurant) {
+  if (!restaurant || restaurant.is_active === false) {
     notFound();
   }
 

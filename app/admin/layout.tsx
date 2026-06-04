@@ -25,31 +25,7 @@ export default async function AdminLayout({
     .eq("user_id", user.id)
     .single();
 
-  if (!restaurant) {
-    // User has no restaurant, create one
-    const { data: newRestaurant, error } = await supabase
-      .from("restaurants")
-      .insert({
-        user_id: user.id,
-        name: user.user_metadata?.restaurant_name || "Mon Restaurant",
-        email: user.email,
-      })
-      .select()
-      .single();
 
-    if (error || !newRestaurant) {
-      redirect("/auth/login");
-    }
-
-    return (
-      <div className="min-h-screen bg-background flex">
-        <AdminSidebar restaurant={newRestaurant} />
-        <main className="flex-1 overflow-auto pt-16 lg:pt-0">
-          {children}
-        </main>
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen bg-background flex">
