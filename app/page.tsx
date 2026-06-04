@@ -120,12 +120,12 @@ function PhoneMockup() {
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background overflow-x-hidden">
 
       {/* ── NAV ── */}
       <header className="sticky top-0 z-50 border-b border-border/40 bg-background/80 backdrop-blur-lg">
-        <div className="container mx-auto px-4 h-24 flex items-center justify-between gap-4">
-          <Image src="/logo.png" alt="SmartMenu" width={220} height={96} className="h-20 w-auto object-contain shrink-0" />
+        <div className="container mx-auto px-4 h-16 flex items-center justify-between gap-4">
+          <Image src="/logo.png" alt="SmartMenu" width={160} height={64} className="h-14 w-auto object-contain shrink-0" />
 
           <nav className="hidden md:flex items-center gap-6 text-sm text-muted-foreground">
             <a href="#concept"     className="hover:text-foreground transition-colors">Le concept</a>
@@ -192,7 +192,7 @@ export default function HomePage() {
                 </a>
               </div>
 
-              <div className="hero-ctas mt-8 flex items-center gap-6 text-sm text-muted-foreground">
+              <div className="hero-ctas mt-8 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-muted-foreground">
                 {["Installation gratuite", "Sans engagement", "Support WhatsApp"].map((t) => (
                   <span key={t} className="flex items-center gap-1.5">
                     <CheckCircle2 className="w-3.5 h-3.5 text-primary" />
@@ -213,7 +213,7 @@ export default function HomePage() {
       {/* ── STATS ── */}
       <section className="border-y border-border/40 bg-card/30">
         <div className="container mx-auto px-4 py-10">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
             {[
               { value: 50,   suffix: "+",  label: "Restaurants partenaires" },
               { value: 10,   suffix: "k+", label: "Scans par mois" },
@@ -261,7 +261,7 @@ export default function HomePage() {
       </section>
 
       {/* ── CONCEPT ── */}
-      <section id="concept" className="py-24 border-b border-border/40">
+      <section id="concept" className="py-24 border-b border-border/40 overflow-hidden">
         <div className="container mx-auto px-4">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <ScrollReveal direction="left">
